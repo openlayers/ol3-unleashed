@@ -266,6 +266,23 @@ projection.setExtent([
           </a>
         </section>
         <section>
+          <h2>goal: pixel gymnastics</h2>
+        </section>
+        <section>
+          <h2>compose events</h2>
+          <pre><code class="javascript" data-trim>
+layer.on('postcompose', function(event) {
+  var context = event.context;
+  var canvas = context.canvas;
+
+  // get all the pixels
+  var imageData = context.getImageData(
+     0, 0, canvas.width, canvas.height);
+  // do gymnastics
+});
+          </code></pre>
+        </section>
+        <section>
           <h2>goal: build it</h2>
         </section>
         <section>
