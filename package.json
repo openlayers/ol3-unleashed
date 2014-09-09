@@ -1,0 +1,27 @@
+{
+  "name": "ol3-unleashed",
+  "version": "0.0.0",
+  "description": "FOSS4G 2014 talk on OpenLayers 3",
+  "repository": "",
+  "license": "BSD",
+  "readmeFilename": "README.md",
+  "devDependencies": {
+    "grunt-contrib-copy": "0.4.1",
+    "grunt-contrib-clean": "0.5.0",
+    "grunt-contrib-connect": "0.5.0",
+    "grunt": "0.4.1",
+    "grunt-gh-pages": "0.7.2",
+    "grunt-cli": "0.1.9",
+    "grunt-contrib-watch": "0.5.3",
+    "bower": "1.2.6",
+    "grunt-contrib-jade": "0.8.0",
+    "grunt-contrib-less": "0.7.0",
+    "grunt-newer": "0.5.2"
+  },
+  "scripts": {
+    "install": "bower install",
+    "postinstall": "grunt clean build",
+    "start": "grunt start",
+    "deploy": "grunt deploy"
+  }
+}

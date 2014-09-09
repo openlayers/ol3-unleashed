@@ -1,0 +1,31 @@
+extends _layouts/master
+
+block context
+  - var title = 'Tiles Galore';
+
+block styles
+  link(rel="stylesheet", href="../bower_components/bootstrap/docs/assets/css/bootstrap.css", type="text/css")
+  style.
+    #layers {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: rgba(255, 255, 255, 0.75);
+      padding: 0 20px 10px;
+      border: 2px solid white;
+      border-radius: 5px;
+    }
+
+block extra
+  section(ng-app='ngeo')
+    form#layers(ng-controller='LayerCtrl')
+      fieldset
+        legend Layers
+        label.radio(ng-repeat="layer in layers")
+          input(type='radio', name='visibility', ng-value='layer.get("title")', ng-model='$parent.which', ng-change='toggle(layer)')
+          | {{ layer.get('title') }}
+
+
+block scripts
+  script(src="../bower_components/angular/angular.min.js")
+  script(src='tiles-galore.js')

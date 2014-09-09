@@ -1,0 +1,324 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <title>Working with OpenLayers 3</title>
+
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+
+    <link rel="stylesheet" href="bower_components/reveal.js/css/reveal.min.css">
+    <link rel="stylesheet" href="theme/show.css" id="theme">
+
+    <!-- For syntax highlighting -->
+    <link rel="stylesheet" href="bower_components/reveal.js/lib/css/zenburn.css">
+
+    <!--[if lt IE 9]>
+    <script src="bower_components/reveal.js/lib/js/html5shiv.js"></script>
+    <![endif]-->
+    <style>
+      .reveal h1.beefy {
+        font-weight: bold;
+        text-transform: uppercase;
+        text-shadow: 10px 10px 6px rgba(0, 0, 0, 0.2);
+      }
+      .reveal ul.plain {
+        list-style-type: none;
+      }
+      .reveal h2 > img {
+        vertical-align: sub;
+      }
+      .reveal pre {
+        font-size: 0.85em;
+      }
+      .reveal section img.boundless {
+        margin-bottom: -4em;
+        width: 30%;
+      }
+      .reveal section img.inline-icon {
+        margin: 0 0 -10px 0;
+        vertical-align: text-bottom;
+      }
+      .reveal a.squinty {
+        font-size: 80%;
+      }
+    </style>
+  </head>
+  <body>
+
+    <div class="reveal">
+      <div class="slides">
+        <section data-background="#FDCC32">
+          <h3>working with</h3>
+          <h1 class="beefy">ol3</h1>
+        </section>
+        <section>
+          <h3>tschaub</h3>
+          <h2>@boundlessgeo</h2>
+          <h3>.com</h3>
+          <br><br>
+          <img class="boundless" src="img/boundless-logo.png">
+          <!-- Notes:
+               - Fund raising effort.
+               - Multiple companies involved.
+          -->
+        </section>
+        <section>
+          <img src="img/ol-logo.png">
+        </section>
+        <section data-background="img/origin.jpeg">
+        </section>
+        <section>
+          <img src="img/not.png">
+        </section>
+        <section>
+          <h1 class="beefy">Straight to the demos!</h1>
+        </section>
+        <section>
+          <h2>goal: put a map on a page</h2>
+        </section>
+        <section>
+          <h2><code>ol.Map</code> / <code>ol.View</code></h2>
+          <pre><code class="javascript" data-trim>
+var view = new ol.View({
+  center: [0, 0],
+  zoom: 0
+});
+var map = new ol.Map({
+  target: 'map',
+  layers: [layer],
+  view: view
+});
+          </code></pre>
+          <a href="./examples/hello-world.html">
+            hello world example
+          </a>
+        </section>
+        <section>
+          <h2>goal: use a different data source</h2>
+        </section>
+        <section>
+          <h2><code>ol.layer</code> / <code>ol.source</code></h2>
+          <pre><code class="javascript" data-trim>
+var osm = new ol.layer.Tile({
+  source: new ol.source.OSM()
+});
+          </code></pre>
+          <pre class="fragment fade-in"><code class="javascript" data-trim>
+var bing = new ol.layer.Tile({
+  source: new ol.source.BingMaps({
+    // your key here
+    key: 'AlQLZ0-5yk301_ESrmN...',
+    style: 'AerialWithLabels'
+  })
+}));
+          </code></pre>
+          <a href="./examples/tiles-galore.html">
+            tiles galore example
+          </a>
+          <!--
+            Notes:
+              - arbitrary resolutions
+              - interim tiles (maps w/o edges)
+              - tile cache (LRU, each source)
+              - prioritized tile queue (in frame, close to focus, at resolution)
+          -->
+        </section>
+        <section>
+          <h2>goal: give the user control</h2>
+        </section>
+        <section>
+          <h2><code>ol.interaction</code></h2>
+          <ul class="plain">
+            <li><code>ol.interaction.Drag</code></li>
+            <li><code>ol.interaction.DragRotate</code></li>
+            <li><code>ol.interaction.KeyboardPan</code></li>
+            <li><code>ol.interaction.TouchZoom</code></li>
+            <li><code>// etc.</code></li>
+          </ul>
+        </section>
+        <section>
+          <h2><code>ol.control</code></h2>
+          <ul class="plain">
+            <li><code>ol.control.Zoom</code></li>
+            <li><code>ol.control.ScaleLine</code></li>
+            <li><code>ol.control.MousePosition</code></li>
+            <li><code>ol.control.Attribution</code></li>
+            <li><code>// etc.</code></li>
+          </ul>
+          <br><br>
+          <a href="./examples/interaction-control.html">
+            interaction/control example
+          </a>
+          <!--
+            Notes:
+              - configurable defaults
+              - easily styled
+              - demonstrate full-screen
+              - attributions and logo from source
+              - range slider with 2-way binding
+          -->
+        </section>
+        <section>
+          <h2>goal: work with vector data</h2>
+        </section>
+        <section>
+          <h2><code>ol.layer</code> / <code>ol.source</code></h2>
+          <pre><code class="javascript" data-trim>
+var vector = new ol.layer.Vector({
+  source: new ol.source.GeoJSON({
+    url: 'data/countries.json',
+    projection: 'EPSG:3857'
+  })
+});
+          </code></pre>
+        </section>
+        <section>
+          <h2>goal: give it some style</h2>
+        </section>
+        <section>
+          <h2><code>ol.style</code></h2>
+          <pre><code class="javascript" data-trim>
+vector.setStyle(new ol.style.Style({
+  fill: new ol.style.Fill({
+    color: 'rgba(255, 255, 255, 0.3)'
+  }),
+  stroke: new ol.style.Stroke({
+    color: '#319FD3'
+  })
+}));
+          </code></pre>
+        </section>
+        <section>
+          <h2><code>style function</code></h2>
+          <pre><code class="javascript" data-trim>
+vector.setStyle(function(feature, resolution) {
+  if (resolution &lt; 5000) {
+    // return some style
+  } else {
+    // return a different style
+  }
+});
+          </code></pre>
+          <a href="./examples/vector-layer.html">
+            vector layer example
+          </a>
+        </section>
+        <section>
+          <h2>goal: let user interact with the data</h2>
+        </section>
+        <section>
+          <h2><code>ol.Overlay</code></h2>
+          <pre><code class="javascript" data-trim>
+var el = document.getElementById('popup');
+var popup = new ol.Overlay({
+  element: el
+});
+map.addOverlay(popup);
+
+map.on('click', function(evt) {
+  popup.setPosition(evt.getCoordinate());
+  el.className = 'open';
+  el.innerHTML = 'Hello Mappers!'
+});
+          </code></pre>
+          <a href="./examples/overlays.html">
+            overlay example
+          </a>
+          <!--
+            Notes:
+             - registering event listeners
+             - popup.bindTo('position', map.getView(), 'center')
+          -->
+        </section>
+        <section>
+          <h2>goal: let user interact with <em>lots</em> data</h2>
+          <a href="./examples/synthetic-data.html">
+            more points than you can shake a stick at
+          </a>
+        </section>
+        <section>
+          <h2>goal: allow editing</h2>
+        </section>
+        <section>
+          <h2><code>Select/Modify</code></h2>
+          <pre><code class="javascript" data-trim>
+/** 
+ * WARNING: VERY UNSTABLE API TERRAIN BELOW
+ */
+var select = new ol.interaction.Select({
+  layerFilter: function(layer) {
+    return layer === vector;
+  }
+});
+
+var modify = new ol.interaction.Modify();
+          </code></pre>
+          <a href="./examples/modify-features.html">
+            editing example
+          </a>
+        </section>
+        <section>
+          <h2>goal: get involved</h2>
+          <br>
+          <h3>
+            <img class="inline-icon" src="img/icon-gh.png">
+            Become a contributor
+          </h3>
+          <a class="squinty" href="https://github.com/openlayers/ol3">https://github.com/openlayers/ol3</a>
+          <br>
+          <br>
+          <h3>
+            <img class="inline-icon" src="img/icon-mail.png">
+            Join the discussion
+          </h3>
+          <a class="squinty" href="https://groups.google.com/d/forum/ol3-dev">https://groups.google.com/d/forum/ol3-dev</a>
+        </section>
+        <section data-background="#FDCC32">
+          <h1>Thanks!</h1>
+          <br>
+          <p>
+            watch this space
+            <br>
+            <a href="http://ol3js.org/">
+              http://ol3js.org/
+            </a>
+          </p>
+        </section>
+      </div>
+    </div>
+
+    <!-- reveal.js loading and configuration -->
+    <script src="bower_components/reveal.js/lib/js/head.min.js"></script>
+    <script src="bower_components/reveal.js/js/reveal.min.js"></script>
+    <script>
+      // Full list of configuration options available here:
+      // https://github.com/hakimel/reveal.js#configuration
+      Reveal.initialize({
+        controls: true,
+        progress: true,
+        history: true,
+        center: true,
+        rollingLinks: false,
+        transition: 'linear', // default/cube/page/concave/zoom/linear/fade/none
+
+        // Optional libraries used to extend on reveal.js
+        dependencies: [{
+          src: 'bower_components/reveal.js/lib/js/classList.js',
+          condition: function() {
+            return !document.body.classList;
+          }
+        }, {
+          src: 'bower_components/reveal.js/plugin/highlight/highlight.js',
+          async: true,
+          callback: function() {
+            hljs.initHighlightingOnLoad();
+          }
+        }]
+      });
+
+    </script>
+  </body>
+</html>

@@ -1,0 +1,10 @@
+{
+  "name": "ol3-unleashed",
+  "version": "0.0.0",
+  "dependencies": {
+    "bootstrap": "2.3.2",
+    "reveal.js": "2.5.0",
+    "font-awesome": "3.2.1",
+    "angular": "~1.0.8"
+  }
+}

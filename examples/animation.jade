@@ -1,0 +1,28 @@
+extends _layouts/master
+
+block context
+  - var title = 'Animation';
+
+block styles
+  link(rel="stylesheet", href="../bower_components/bootstrap/docs/assets/css/bootstrap.css", type="text/css")
+  style.
+    #buttons {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+    }
+
+block extra
+  div.btn-toolbar#buttons
+    div.btn-group.btn-group-vertical
+      div.btn#rotate-left Spin Left
+      div.btn#rotate-right Spin Right
+      div.btn#pan-to-london Pan to London
+      div.btn#elastic-to-moscow Elastic to Moscow
+      div.btn#bounce-to-istanbul Bounce to Istanbul
+      div.btn#spin-to-rome Spin to Rome
+      div.btn#fly-to-bern Fly to Bern
+      div.btn#spiral-to-madrid Spiral to Madrid
+
+block scripts
+  script(src='animation.js')

@@ -1,0 +1,60 @@
+extends _layouts/master
+
+block context
+  - var title = 'Interaction / Control';
+
+block styles
+  style.
+    .ol-scale-line {
+      top: 10px;
+      left: 60px;
+      bottom: inherit;
+    }
+    .ol-scale-line-inner {
+      font-size: 12px;
+    }
+    .ol-full-screen {
+      right: 45px;
+    }
+    #rotation-wrapper {
+      position: absolute;
+      top: 14px;
+      right: 100px;
+      border-radius: 4px;
+      padding: 2px;
+      background: rgba(255,255,255,0.4);
+      height: 10px;
+      line-height: 5px;
+    }
+    #rotation {
+      -webkit-appearance: none;
+      background-color: white;
+      width: 100px;
+      height: 4px;
+      border: 0;
+      font-size: 5px;
+    }
+
+    #rotation::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      background-color: rgba(0,60,136,0.75);
+      width: 10px;
+      height: 10px;
+      border-radius: 4px;
+    }
+    
+    #locate {
+      position: absolute;
+      top: 8px;
+      right: 240px;
+      font-size: 14px;
+    }
+
+block extra
+  div#rotation-wrapper
+    input#rotation(type="range", min="-3.14159", max="3.14159", step="0.01")
+  button#locate locate
+
+
+block scripts
+  script(src='interaction-control.js')
