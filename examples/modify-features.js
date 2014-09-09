@@ -1,81 +1,26 @@
 var raster = new ol.layer.Tile({
-  source: new ol.source.MapQuestOpenAerial()
+  source: new ol.source.MapQuest({layer: 'sat'})
 });
 
 var vector = new ol.layer.Vector({
-  id: 'vector',
-  source: new ol.source.Vector({
-    parser: new ol.parser.ogc.GML_v3(),
-    url: 'data/states.gml'
-  }),
-  style: new ol.style.Style({
-    rules: [
-      new ol.style.Rule({
-        filter: 'renderIntent("selected")',
-        symbolizers: [
-          new ol.style.Fill({
-            color: '#ffffff',
-            opacity: 0.1
-          }),
-          new ol.style.Stroke({
-            color: '#000066',
-            width: 6
-          }),
-          new ol.style.Stroke({
-            color: '#0066dd',
-            width: 3
-          })
-        ]
-      }),
-      new ol.style.Rule({
-        filter: 'renderIntent("temporary")',
-        symbolizers: [
-          new ol.style.Shape({
-            fill: new ol.style.Fill({
-              color: '#000066',
-              opacity: 1
-            }),
-            size: 18
-          })
-        ]
-      }),
-      new ol.style.Rule({
-        filter: 'renderIntent("future")',
-        symbolizers: [
-          new ol.style.Shape({
-            fill: new ol.style.Fill({
-              color: '#0066dd',
-              opacity: 1
-            }),
-            size: 18
-          })
-        ]
-      })
-    ],
-    symbolizers: [
-      new ol.style.Stroke({
-        color: '#000000',
-        width: 5
-      }),
-      new ol.style.Stroke({
-        color: '#ffffff',
-        width: 2.5
-      })
-    ]
+  source: new ol.source.GeoJSON({
+    url: 'data/countries.json',
+    projection: 'EPSG:3857'
   })
 });
 
-var selectInteraction = new ol.interaction.Select({
-  layerFilter: function(layer) { return layer.get('id') == 'vector'; }
+var select = new ol.interaction.Select();
+
+var modify = new ol.interaction.Modify({
+  features: select.getFeatures()
 });
 
 var map = new ol.Map({
-  interactions: ol.interaction.defaults().extend(
-      [selectInteraction, new ol.interaction.Modify()]),
-  layers: [raster, vector],
   target: 'map',
+  interactions: ol.interaction.defaults().extend([select, modify]),
+  layers: [raster, vector],
   view: new ol.View({
-    center: [-11000000, 4600000],
-    zoom: 4
+    center: [0, 0],
+    zoom: 2
   })
 });

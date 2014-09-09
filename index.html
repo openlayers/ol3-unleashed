@@ -44,6 +44,9 @@
       .reveal a.squinty {
         font-size: 80%;
       }
+      .smaller {
+        font-size: smaller !important;
+      }
     </style>
   </head>
   <body>
@@ -51,30 +54,20 @@
     <div class="reveal">
       <div class="slides">
         <section data-background="#FDCC32">
-          <h3>working with</h3>
           <h1 class="beefy">ol3</h1>
+          <h3>unleashed</h3>
         </section>
         <section>
-          <h3>tschaub</h3>
-          <h2>@boundlessgeo</h2>
+          <h3>tim</h3>
+          <h2>@planet</h2>
           <h3>.com</h3>
           <br><br>
-          <img class="boundless" src="img/boundless-logo.png">
-          <!-- Notes:
-               - Fund raising effort.
-               - Multiple companies involved.
-          -->
+          <h3>ahocevar</h3>
+          <h2>@boundlessgeo</h2>
+          <h3>.com</h3>
         </section>
         <section>
           <img src="img/ol-logo.png">
-        </section>
-        <section data-background="img/origin.jpeg">
-        </section>
-        <section>
-          <img src="img/not.png">
-        </section>
-        <section>
-          <h1 class="beefy">Straight to the demos!</h1>
         </section>
         <section>
           <h2>goal: put a map on a page</h2>
@@ -92,9 +85,6 @@ var map = new ol.Map({
   view: view
 });
           </code></pre>
-          <a href="./examples/hello-world.html">
-            hello world example
-          </a>
         </section>
         <section>
           <h2>goal: use a different data source</h2>
@@ -132,10 +122,10 @@ var bing = new ol.layer.Tile({
         <section>
           <h2><code>ol.interaction</code></h2>
           <ul class="plain">
-            <li><code>ol.interaction.Drag</code></li>
+            <li><code>ol.interaction.DragPan</code></li>
             <li><code>ol.interaction.DragRotate</code></li>
             <li><code>ol.interaction.KeyboardPan</code></li>
-            <li><code>ol.interaction.TouchZoom</code></li>
+            <li><code>ol.interaction.PinchZoom</code></li>
             <li><code>// etc.</code></li>
           </ul>
         </section>
@@ -211,21 +201,21 @@ vector.setStyle(function(feature, resolution) {
         </section>
         <section>
           <h2><code>ol.Overlay</code></h2>
-          <pre><code class="javascript" data-trim>
-var el = document.getElementById('popup');
+          <pre><code class="javascript smaller" data-trim>
 var popup = new ol.Overlay({
-  element: el
+  element: $('#popup')[0]
 });
 map.addOverlay(popup);
 
-map.on('click', function(evt) {
-  popup.setPosition(evt.getCoordinate());
-  el.className = 'open';
-  el.innerHTML = 'Hello Mappers!'
+map.on('click', function(e) {
+  map.forEachFeatureAtPixel(e.pixel, function(feature) {
+    $('#popup').html(feature.get('name'));
+  });
+  popup.setPosition(e.coordinate);
 });
           </code></pre>
-          <a href="./examples/overlays.html">
-            overlay example
+          <a href="./examples/vector-interaction.html">
+            feature interaction
           </a>
           <!--
             Notes:
@@ -234,31 +224,60 @@ map.on('click', function(evt) {
           -->
         </section>
         <section>
-          <h2>goal: let user interact with <em>lots</em> data</h2>
-          <a href="./examples/synthetic-data.html">
-            more points than you can shake a stick at
-          </a>
-        </section>
-        <section>
           <h2>goal: allow editing</h2>
         </section>
         <section>
           <h2><code>Select/Modify</code></h2>
           <pre><code class="javascript" data-trim>
-/** 
- * WARNING: VERY UNSTABLE API TERRAIN BELOW
- */
-var select = new ol.interaction.Select({
-  layerFilter: function(layer) {
-    return layer === vector;
-  }
-});
+var select = new ol.interaction.Select();
 
-var modify = new ol.interaction.Modify();
+var modify = new ol.interaction.Modify({
+  features: select.getFeatures()
+});
           </code></pre>
           <a href="./examples/modify-features.html">
             editing example
           </a>
+        </section>
+        <section>
+          <h2>goal: alt projection</h2>
+        </section>
+        <section>
+          <h2><code>ol.proj</code></h2>
+          <pre><code class="javascript" data-trim>
+proj4.defs('ESRI:53009',
+    '+proj=moll +lon_0=0 +x_0=0 +y_0=0 ' +
+    '+a=6371000 +b=6371000 +units=m +no_defs');
+
+var projection = ol.proj.get('ESRI:53009');
+
+projection.setExtent([
+  -9009954.605703328, -9009954.605703328,
+  9009954.605703328, 9009954.605703328]);
+          </code></pre>
+          <a href="./examples/custom-proj.html">
+            sphere mollweide
+          </a>
+        </section>
+        <section>
+          <h2>goal: build it</h2>
+        </section>
+        <section>
+          <h2><code>build.json</code></h2>
+          <pre><code class="javascript" data-trim>
+{
+  "exports": [
+    "ol.Map*", "ol.View*",
+    "ol.layer.Tile", "ol.source.XYZ",
+    "ol.layer.Vector", "ol.source.GeoJSON",
+    "ol.Overlay", "ol.Overlay#setPosition"
+  ],
+  "compile": {
+    "compilation_level": "ADVANCED" // ...
+  }
+}
+          </code></pre>
+          <code class="smaller">node tasks/build.js build.json ol.min.js</code>
         </section>
         <section>
           <h2>goal: get involved</h2>

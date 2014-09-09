@@ -1,7 +1,7 @@
 extends _layouts/master
 
 block context
-  - var title = 'Rendering Synthetic Data';
+  - var title = 'Overlays';
 
 block styles
   link(rel="stylesheet", href="../bower_components/bootstrap/docs/assets/css/bootstrap.css", type="text/css")
@@ -11,14 +11,15 @@ block styles
       top: 20px;
       right: 20px;
     }
-    .popover-content {
-      min-width: 180px;
-    }
 
 block extra
-  div#popup(title="Feature Info")
+  div#popup(title="Feature")
+  div#info.alert.alert-info
+    button.close(data-dismiss="alert") &times;
+    strong Hint: 
+    span Click on the map to see a popup.
 
 block scripts
   script(src="../bower_components/jquery/jquery.js")
   script(src="../bower_components/bootstrap/docs/assets/js/bootstrap.min.js")
-  script(src='synthetic-data.js')
+  script(src='vector-interaction.js')

@@ -1,0 +1,14 @@
+extends _layouts/master
+
+block context
+  - var title = 'Custom Projection';
+
+block styles
+  style.
+    div.full {
+      background: #ccccff;
+    }
+
+block scripts
+  script(src='//cdnjs.cloudflare.com/ajax/libs/proj4js/2.2.1/proj4.js')
+  script(src='custom-proj.js')
