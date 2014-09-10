@@ -272,6 +272,12 @@ projection.setExtent([
         <section>
           <!-- ANDREAS -->
           <h2>ol3 meets cesium</h2>
+          <pre><code class="javascript" data-trim>
+var globe = new olcs.OLCesium(map);
+$('#globe-button').click(function() {
+  globe.setEnabled(!globe.getEnabled());
+});
+          </code></pre>
           <a href="./examples/cesium.html">
             map to globe
           </a>

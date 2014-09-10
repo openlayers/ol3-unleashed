@@ -1,0 +1,23 @@
+extends _layouts/master
+
+block context
+  - var title = 'Vector Layer';
+
+block styles
+  style.
+    #mapglobe {
+      position: absolute;
+      top: 8px;
+      right: 45px;
+      font-size: 14px;
+    }
+
+
+block extra
+  button#mapglobe map/globe
+
+block scripts
+  script(src="../bower_components/jquery/jquery.js")
+  script(src='Cesium/Cesium.js')
+  script(src='ol3cesium.js')
+  script(src='cesium.js')
