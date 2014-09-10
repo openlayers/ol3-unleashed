@@ -25,9 +25,10 @@ var vector = new ol.layer.Vector({
     } else {
       geodesicArea = getPolyArea(geom, 'EPSG:3857');
     }
+    var color = ramp(geodesicArea / projectedArea);
     return [new ol.style.Style({
       fill: new ol.style.Fill({
-        color: ramp(geodesicArea / projectedArea)
+        color: color
       }),
       stroke: new ol.style.Stroke({
         color: 'white',
@@ -38,6 +39,10 @@ var vector = new ol.layer.Vector({
         text: text,
         fill: new ol.style.Fill({
           color: '#fff'
+        }),
+        stroke: new ol.style.Stroke({
+          color: color,
+          width: 6
         })
       })
     })];
