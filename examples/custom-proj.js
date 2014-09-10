@@ -23,6 +23,9 @@ var vector = new ol.layer.Vector({
 
 var control = new ol.control.MousePosition({
   coordinateFormat: function(coordinate) {
+    if (coordinate[1] <= -90 || coordinate[1] >= 90) {
+      return '&nbsp;';
+    }
     return ol.coordinate.toStringHDMS(coordinate);
   },
   projection: 'EPSG:4326',
