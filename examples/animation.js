@@ -19,11 +19,15 @@ var map = new ol.Map({
   layers: [
     new ol.layer.Tile({
       preload: 4,
-      source: new ol.source.MapQuestOSM()
+      source: new ol.source.MapQuest({layer: 'sat'})
     })
   ],
   view: view
 });
+
+function elastic(t) {
+  return Math.pow(2, -10 * t) * Math.sin((t - 0.075) * (2 * Math.PI) / 0.3) + 1;
+}
 
 var rotateLeft = document.getElementById('rotate-left');
 rotateLeft.addEventListener('click', function() {
@@ -57,22 +61,11 @@ var elasticToMoscow = document.getElementById('elastic-to-moscow');
 elasticToMoscow.addEventListener('click', function() {
   var pan = ol.animation.pan({
     duration: 2000,
-    easing: ol.easing.elastic,
+    easing: elastic,
     source: view.getCenter()
   });
   map.beforeRender(pan);
   view.setCenter(moscow);
-}, false);
-
-var bounceToIstanbul = document.getElementById('bounce-to-istanbul');
-bounceToIstanbul.addEventListener('click', function() {
-  var pan = ol.animation.pan({
-    duration: 2000,
-    easing: ol.easing.bounce,
-    source: view.getCenter()
-  });
-  map.beforeRender(pan);
-  view.setCenter(istanbul);
 }, false);
 
 var spinToRome = document.getElementById('spin-to-rome');
@@ -130,6 +123,6 @@ spiralToMadrid.addEventListener('click', function() {
     rotation: -4 * Math.PI,
     start: start
   });
-  map.beforeRenders(pan, bounce, rotate);
+  map.beforeRender(pan, bounce, rotate);
   view.setCenter(madrid);
 }, false);
