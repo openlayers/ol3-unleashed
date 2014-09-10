@@ -6,6 +6,15 @@ var vector = new ol.layer.Vector({
   source: new ol.source.GeoJSON({
     url: 'data/countries.json',
     projection: 'EPSG:3857'
+  }),
+  style: new ol.style.Style({
+    fill: new ol.style.Fill({
+      color: 'rgba(0,0,0,0.3)'
+    }),
+    stroke: new ol.style.Stroke({
+      color: 'rgba(255,255,255,0.75)',
+      width: 1
+    })
   })
 });
 
