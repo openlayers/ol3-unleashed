@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>OL3 - Custom Projection</title>
+    <link rel="stylesheet" href="ol.css">
+    <link rel="stylesheet" href="style.css">
+    <style>
+      div.full {
+        background: #ccccff;
+      }
+      .ol-mouse-position {
+        top: inherit;
+        right: inherit;
+        bottom: 8px;
+        left: 8px;
+        font-family: sans-serif;
+        color: steelblue;
+      }
+      
+    </style>
+  </head>
+  <body>
+    <div id="map" class="full"></div>
+    <script src="ol.js"></script>
+    <script src="//cdnjs.cloudflare.com/ajax/libs/proj4js/2.2.1/proj4.js"></script>
+    <script src="custom-proj.js"></script>
+  </body>
+</html>

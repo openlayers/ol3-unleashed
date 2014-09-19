@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>OL3 - Animation</title>
+    <link rel="stylesheet" href="ol.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../bower_components/bootstrap/docs/assets/css/bootstrap.css" type="text/css">
+    <style>
+      #buttons {
+        position: absolute;
+        top: 10px;
+        right: 10px;
+      }
+      .ol-rotate {
+        right: inherit;
+        top: 4.5em;
+        left: .5em;
+      }
+      
+    </style>
+  </head>
+  <body>
+    <div id="map" class="full"></div>
+    <div id="buttons" class="btn-toolbar">
+      <div class="btn-group btn-group-vertical">
+        <div id="rotate-left" class="btn">Spin Left</div>
+        <div id="rotate-right" class="btn">Spin Right</div>
+        <div id="pan-to-london" class="btn">Pan to London</div>
+        <div id="elastic-to-moscow" class="btn">Elastic to Moscow</div>
+        <div id="spin-to-rome" class="btn">Spin to Rome</div>
+        <div id="fly-to-bern" class="btn">Fly to Bern</div>
+        <div id="spiral-to-madrid" class="btn">Spiral to Madrid</div>
+      </div>
+    </div>
+    <script src="ol.js"></script>
+    <script src="animation.js"></script>
+  </body>
+</html>

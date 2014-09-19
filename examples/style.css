@@ -1,0 +1,16 @@
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+div.full {
+  width: 100%;
+  height: 100%;
+  background: url("data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABQAAAAUCAMAAAC6V+0/AAAAGXRFWHRTb2Z0d2FyZQBBZG9iZSBJbWFnZVJlYWR5ccllPAAAAAZQTFRF7/r+////JvYf4gAAAAJ0Uk5T/wDltzBKAAAAGElEQVR42mJgwAoYYQCJNWQEh5uPAAIMAP2AAUUBpXchAAAAAElFTkSuQmCC");
+}
+.ol-zoom a:hover,
+.ol-zoom a:focus {
+  color: white;
+  text-decoration: none;
+};

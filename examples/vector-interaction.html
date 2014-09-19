@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>OL3 - Overlays</title>
+    <link rel="stylesheet" href="ol.css">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="../bower_components/bootstrap/docs/assets/css/bootstrap.css" type="text/css">
+    <style>
+      #info {
+        position: absolute;
+        top: 20px;
+        right: 20px;
+      }
+      
+    </style>
+  </head>
+  <body>
+    <div id="map" class="full"></div>
+    <div id="popup" title="Country Info"></div>
+    <div id="info" class="alert alert-info">
+      <button data-dismiss="alert" class="close">&times;</button><strong>Hint: </strong><span>Click on the map to see a popup.</span>
+    </div>
+    <script src="ol.js"></script>
+    <script src="../bower_components/jquery/jquery.js"></script>
+    <script src="../bower_components/bootstrap/docs/assets/js/bootstrap.min.js"></script>
+    <script src="vector-interaction.js"></script>
+  </body>
+</html>
